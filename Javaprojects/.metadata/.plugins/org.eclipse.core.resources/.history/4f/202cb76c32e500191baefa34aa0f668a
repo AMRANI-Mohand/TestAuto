@@ -1,0 +1,52 @@
+package appiumtests;
+
+import io.appium.java_client.MobileBy;
+
+/**
+ * Ce test ouvre journeys avec le formulaire et remplie les champs de saisies
+ * 
+ * @author mamrani
+ *
+ */
+public class C_ReverseDepartureArrivalAfterSearch extends C_ReverseDepartureArrivalBeforeSearch {
+	
+	private static String thePath = "org.kisio.sample.navitia.sdk.ui:id/%s"; 
+	private static String theXpath = "//android.view.ViewGroup[@content-desc=\"%s";	                                    
+
+	public static void main(String[] args) {
+		System.out.println("Hello, we're going to reverse the departure and arrival after the itinerary search");
+
+		try {
+			openJourney();
+			gotoFormulary();
+			ReverseThenSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Active le formulaire et lance le formulaire
+	 * 
+	 * @throws Exception
+	 */
+	static void gotoFormulary() throws Exception {
+		getElementById("switch_configuration_form").click();
+
+		Thread.sleep(3000);
+
+		getElementById("button_configuration").click();
+	}
+
+	static void ReverseThenSearch() throws Exception {
+
+		FillInTheDepartureBeforeArrival();
+		FillInTheArrivalFieldAfterDeparture();
+		clickOnSearch();
+
+		Thread.sleep(4000);
+
+		driver.findElement(MobileBy.id(String.format(thePath,"frj_result_inverter"))).click();
+	}
+	
+}

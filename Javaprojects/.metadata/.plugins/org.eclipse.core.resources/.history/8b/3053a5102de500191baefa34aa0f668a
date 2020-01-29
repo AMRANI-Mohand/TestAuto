@@ -1,0 +1,89 @@
+package appiumtests;
+
+import io.appium.java_client.MobileBy;
+
+/**
+ * Ce test ouvre journeys avec le formulaire et remplie les champs de saisies
+ * 
+ * @author mamrani
+ *
+ */
+public class C_ReverseDepartureArrival extends AbstractJourneysTest {
+	
+	private static String thePath = "org.kisio.sample.navitia.sdk.ui:id/%s"; 
+	private static String theXpath = "//android.view.ViewGroup[@content-desc=\"%s";	                                    
+
+	public static void main(String[] args) {
+		System.out.println("Hello, we're going to do a simple itinerary search starting with the departure");
+
+		try {
+			openJourney();
+			gotoFormulary();
+			FillInTheDepartureBeforeArrival();
+			FillInTheArrivalFieldAfterDeparture();
+			
+			clickOnSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Active le formulaire et lance le formulaire
+	 * 
+	 * @throws Exception
+	 */
+	static void gotoFormulary() throws Exception {
+		getElementById("switch_configuration_form").click();
+
+		Thread.sleep(3000);
+
+		getElementById("button_configuration").click();
+	}
+
+	/**
+	 * Ouverture de l'auto-completion et saisie du champs départ
+	 * 
+	 * @throws Exception
+	 */
+	static void FillInTheDepartureBeforeArrival() throws Exception {
+
+		getElementById("frf_departure_text").click();
+		getElementById("fra_departure_text").setValue("paris ga");
+
+		Thread.sleep(4000);
+
+		driver.findElement(MobileBy.xpath(String.format(theXpath,"Arrêt Gare de Lyon (Paris)\"]")))
+			  .click();			
+	}
+	
+	/**
+	 * Saisie du champs arrivée après avoir saisi le départ
+	 * 
+	 * @throws Exception
+	 */
+	
+	static void FillInTheArrivalFieldAfterDeparture() throws Exception {
+		
+		getElementById("fra_arrival_text").setValue("repub");
+
+		Thread.sleep(4000);
+
+		driver.findElement(MobileBy.xpath(String.format(theXpath,"Arrêt République (Paris)\"]")))
+				.click();
+	}
+
+	static void ReverseThenSearch() throws Exception {
+
+		FillInTheDepartureBeforeArrival();
+		FillInTheArrivalFieldAfterDeparture();
+
+		Thread.sleep(3000);
+
+		driver.findElement(MobileBy.id(String.format(thePath,"frf_result_inverter"))).click();
+	}
+	
+	static void clickOnSearch() throws Exception {
+		getElementById("frf_search_button").click();
+	}
+}

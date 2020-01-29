@@ -1,0 +1,36 @@
+package appiumtests;
+
+import io.appium.java_client.MobileBy;
+
+/**
+ * Ce test ouvre journeys avec le formulaire et remplie les champs de saisies
+ * 
+ * @author mamrani
+ *
+ */
+public class C_ReverseDepartureArrivalBeforeSearch extends B_DoSimpleItinerarySearch_DepartureArrival {                                 
+
+	public static void main(String[] args) {
+		System.out.println("Hello, we're going to reverse the departure and arrival before the itinerary search");
+
+		try {
+			openJourney();
+			gotoFormulary();
+			ReverseThenSearch();
+			clickOnSearch();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static void ReverseThenSearch() throws Exception {
+
+		FillInTheDepartureBeforeArrival();
+		FillInTheArrivalFieldAfterDeparture();
+
+		Thread.sleep(3000);
+
+		driver.findElement(MobileBy.id(String.format(thePath,"frf_result_inverter"))).click();
+	}
+	
+}

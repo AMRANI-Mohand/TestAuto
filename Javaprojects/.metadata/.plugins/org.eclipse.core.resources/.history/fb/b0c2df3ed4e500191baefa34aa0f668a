@@ -1,0 +1,33 @@
+package appiumtests;
+
+import io.appium.java_client.MobileBy;
+
+/**
+ * Ce test ouvre journeys avec le formulaire et vérifie les composants cachés 
+ * 
+ * @author mamrani
+ *
+ */
+public class A_GreyedOutWritings extends A_AbstractJourneysTest {
+	
+	public static void main(String[] args) {
+		System.out.println("Hello, we're going to check the greyed components in the formulary");
+
+		try {
+			openJourney();
+			continueWithFormulary();
+			hidden_component();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static void hidden_component() throws Exception {
+        String TheDepartureText; 
+        //TheDepartureText = driver.findElement(MobileBy.id(String.format(thePath,"frf_departure_text"))).getText();
+        driver.findElement(MobileBy.id(String.format(thePath,"frf_departure_text")));
+        		//return TheDepartureText; 
+		
+		
+	}
+}

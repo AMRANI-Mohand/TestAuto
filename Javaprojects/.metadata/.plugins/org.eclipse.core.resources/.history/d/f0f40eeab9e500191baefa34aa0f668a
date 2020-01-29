@@ -1,0 +1,33 @@
+package appiumtests;
+
+import io.appium.java_client.MobileBy;
+
+/**
+ * Ce test ouvre journeys avec le formulaire et remplie les champs de saisies
+ * 
+ * @author mamrani
+ *
+ */
+public class A_GreyedComponent extends A_AbstractJourneysTest {
+	
+	public static void main(String[] args) {
+		System.out.println("Hello, we're going to do a simple itinerary search starting with the Arrival");
+
+		try {
+			openJourney();
+			continueWithFormulary();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	static void greyed_component() throws Exception {
+		if (!driver.findElement(MobileBy.id("org.kisio.sample.navitia.sdk.ui:id/frf_result_inverter")).isEnabled()
+				&& !driver.findElement(MobileBy.id("org.kisio.sample.navitia.sdk.ui:id/frf_search_button"))
+						  .isEnabled()) {
+			System.out.println("The reverse and search button are grayed, you have to set the departure and arrival point");
+		}
+		
+}
+}
